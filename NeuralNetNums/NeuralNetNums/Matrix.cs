@@ -37,7 +37,7 @@ namespace NeuralNetNums
             {
                 for (int j = 0; j < width; j++)
                 {
-                    a[i, j] = rnd.NextDouble();
+                    a[i, j] = rnd.NextDouble() - 0.5;
                 }
             }
 
@@ -46,7 +46,15 @@ namespace NeuralNetNums
 
         public Matrix(double[,] matrix)
         {
-            this.matrix = matrix;
+            this.matrix = new double[matrix.GetLength(0), matrix.GetLength(1)];
+
+            for(int i=0;i<matrix.GetLength(0);i++)
+            {
+                for(int j=0;j<matrix.GetLength(1);j++)
+                {
+                    this.matrix[i, j] = matrix[i,j];
+                }
+            }
         }
 
         public Matrix(int i, int j)
@@ -136,16 +144,60 @@ namespace NeuralNetNums
 
         public double GetSum()
         {
-            double b = 0;
+            double val = 0;
+
             for(int i=0;i<matrix.GetLength(0);i++)
             {
                 for(int j=0;j<matrix.GetLength(1);j++)
                 {
-                    b += matrix[i, j];
+                    val += matrix[i, j];
                 }
             }
 
-            return b = b / matrix.Length;
+            return val;
+        }
+
+        public double GetCost()
+        {
+            double b = 0;
+            double[] t = new double[matrix.GetLength(0)];
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                b = 0;
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    b += matrix[i, j];
+                }
+                t[i] = b;
+            }
+            b = 0;
+            for (int i = 0; i < t.GetLength(0); i++)
+            {
+                b += t[i];
+            }
+            return b = b / t.GetLength(0);
+        }
+
+        public Matrix ByColMult(Matrix a)
+        {
+            return matrixHelper.ByRowMult(new Matrix(matrix), a);
+        }
+
+        public Matrix AddByRow(Matrix a)
+        {
+            return matrixHelper.ByRowAddition(new Matrix(matrix), a);
+        }
+
+        public Matrix AvgPerRow()
+        {
+            Matrix a = new Matrix(matrix);
+            return matrixHelper.AvgPerRow(a);
+        }
+
+        public Matrix AvgPerCol()
+        {
+            Matrix a = new Matrix(matrix);
+            return matrixHelper.AvgPerCol(a);
         }
 
         public static Matrix operator +(Matrix a, Matrix b)

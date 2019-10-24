@@ -137,5 +137,72 @@ namespace NeuralNetNums
 
             return b;
         }
+
+        public Matrix ByRowAddition(Matrix a, Matrix b)
+        {
+            Matrix c = new Matrix(a);
+
+            for (int i = 0; i < a.GetLength(0); i++)
+            {
+                for (int j = 0; j < a.GetLength(1); j++)
+                {
+                    c[i, j] += b[0, j];
+                }
+            }
+
+            return c;
+        }
+
+        public Matrix ByRowMult(Matrix a, Matrix b)
+        {
+            Matrix c = new Matrix(a);
+
+            for (int i = 0; i < a.GetLength(0); i++)
+            {
+                for (int j = 0; j < a.GetLength(1); j++)
+                {
+                    c[i, j] = a[i,j] * b[0, j];
+                }
+            }
+
+            return c;
+        }
+
+        public Matrix AvgPerRow(Matrix a)
+        {
+            Matrix c = new Matrix(1, a.GetLength(1));
+
+            for (int i = 0; i < a.GetLength(1); i++)
+            {
+                double val = 0;
+                for (int j = 0; j < a.GetLength(0); j++)
+                {
+                    val += a[j, i];
+                }
+                val /= a.GetLength(0);
+                c[0, i] = val;
+            }
+
+            return c;
+        }
+
+        public Matrix AvgPerCol(Matrix a)
+        {
+            Matrix c = new Matrix(1,a.GetLength(1));
+
+            for (int i = 0; i < a.GetLength(1); i++)
+            {
+                double val = 0;
+                for (int j = 0; j < a.GetLength(0); j++)
+                {
+                    val += a[j, i];
+                }
+                val /= a.GetLength(0);
+                c[0, i] = val;
+            }
+
+            return c;
+        }
     }
+    
 }

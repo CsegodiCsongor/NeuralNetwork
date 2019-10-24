@@ -15,6 +15,8 @@ namespace NeuralNetNums
         public Matrix w;
         public Matrix b;
 
+        public Matrix error;
+
         public Matrix delta;
 
         public double rDelta;
