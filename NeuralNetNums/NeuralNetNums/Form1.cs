@@ -128,21 +128,6 @@ namespace NeuralNetNums
 
         }
 
-        void Smth1()
-        {
-            double[,] i = new double[,] { {1, 2, 3},
-                                           {4, 5, 6},
-                                           {9, 10, 11},
-                                           {12, 13, 14}};
-
-            double[,] o = new double[,] { {0, 0},
-                                          {0, 1},
-                                          {0, 0},
-                                          {0, 1} };
-            nn = new NeuralNetwork(i, o, new int[] { 3, 4, 2 });
-
-            nn.Train2();
-        }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
